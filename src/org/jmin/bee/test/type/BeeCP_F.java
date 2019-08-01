@@ -5,10 +5,10 @@ import org.jmin.bee.BeeDataSourceConfig;
 import org.jmin.bee.test.Link;
 
 /**
- *  compete mode for BeeCP
+ * fair mode for BeeCP
  * 
  */
-public class BeeCP_C {
+public class BeeCP_F {
 
 	private static BeeDataSource datasource;
 
@@ -21,7 +21,7 @@ public class BeeCP_C {
 	}
 
 	public static void initDataSource() throws Exception{
-		BeeDataSourceConfig sourceInfo =new  BeeDataSourceConfig(Link.JDBC_DRIVER, 
+		BeeDataSourceConfig sourceInfo = new BeeDataSourceConfig(Link.JDBC_DRIVER, 
 				Link.JDBC_URL,
 				Link.JDBC_USER, 
 				Link.JDBC_PASSWORD);
@@ -29,14 +29,14 @@ public class BeeCP_C {
 		sourceInfo.setPoolMaxSize(Link.POOL_MAX_ACTIVE);
 		sourceInfo.setPoolInitSize(Link.POOL_INIT_SIZE);
 		sourceInfo.setMaxWaitTime(Link.REQUEST_TIMEOUT);
- 		sourceInfo.setValidationQuerySQL("select 1 from dual");
-		sourceInfo.setFairMode(false);
+		sourceInfo.setValidationQuerySQL("select 1 from dual");
+		sourceInfo.setFairMode(true);
 		sourceInfo.setCheckOnBorrow(true);
 		sourceInfo.setCheckOnReturn(false);
 		//sourceInfo.setPoolImplementClassName("org.jmin.bee.pool.ConnectionPool2");
-		datasource = new BeeDataSource(sourceInfo);
+ 		datasource = new BeeDataSource(sourceInfo);
 	}  	
-   
+	
 	public static BeeDataSource getDatasource() {
 		return datasource;
 	}
