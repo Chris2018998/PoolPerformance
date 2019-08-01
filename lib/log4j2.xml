@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="error">
+	<appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="[%-p]%d{yyyy-MM-dd HH:mm:ss}-%m%n" />
+		</Console>
+		<RollingFile name="RollingFile" fileName="JDBCPool.log"
+			filePattern="JDBCPool_%d{yyyy-MM-dd}.log">
+			<PatternLayout pattern="[%-p]%d{yyyy-MM-dd HH:mm:ss}-%m%n" />
+			<SizeBasedTriggeringPolicy size="10MB" />
+		</RollingFile>
+		<Async name="ASYNC">
+			<AppenderRef ref="Console" />
+		</Async>
+		<Async name="ASYNC2">
+			<AppenderRef ref="RollingFile" />
+		</Async>
+
+	</appenders>
+
+	<loggers>
+		<root level="INFO">
+		 <AppenderRef ref="ASYNC"/>
+		  <AppenderRef ref="ASYNC2"/>
+		</root>
+		<logger name="test" level="INFO">
+		 <AppenderRef ref="ASYNC2"/>
+		</logger>
+	</loggers>
+</configuration>  
