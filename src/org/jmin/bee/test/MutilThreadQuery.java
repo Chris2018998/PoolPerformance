@@ -38,7 +38,7 @@ public class MutilThreadQuery {
 	static Logger log = Logger.getLogger(MutilThreadQuery.class);
 
 	private static List<Object> testDBCP(String sql, int threadCount, int executeCount) throws Exception {
-		org.apache.commons.dbcp.BasicDataSource dataource = DBCP.getDatasource();
+		org.apache.commons.dbcp.BasicDataSource dataource = DBCP.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "DBCP");
 		} finally {
@@ -47,7 +47,7 @@ public class MutilThreadQuery {
 	}
 
 	private static List<Object> testDBCP2(String sql, int threadCount, int executeCount) throws Exception {
-		org.apache.commons.dbcp2.BasicDataSource dataource = DBCP2.getDatasource();
+		org.apache.commons.dbcp2.BasicDataSource dataource = DBCP2.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "DBCP2");
 		} finally {
@@ -56,7 +56,7 @@ public class MutilThreadQuery {
 	}
 
 	private static List<Object> testC3P0(String sql, int threadCount, int executeCount) throws Exception {
-		ComboPooledDataSource dataource = C3P0.getDatasource();
+		ComboPooledDataSource dataource = C3P0.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "C3P0");
 		} finally {
@@ -65,7 +65,7 @@ public class MutilThreadQuery {
 	}
 
 	private static List<Object> testTomcatJDBC(String sql, int threadCount, int executeCount) throws Exception {
-		org.apache.tomcat.jdbc.pool.DataSource dataource = TomcatJDBC.getDatasource();
+		org.apache.tomcat.jdbc.pool.DataSource dataource = TomcatJDBC.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "Tomcat");
 		} finally {
@@ -74,7 +74,7 @@ public class MutilThreadQuery {
 	}
 
 	private static List<Object> testVibur(String sql, int threadCount, int executeCount) throws Exception {
-		ViburDBCPDataSource dataource = Vibur.getDatasource();
+		ViburDBCPDataSource dataource = Vibur.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "Vibur");
 		} finally {
@@ -83,7 +83,7 @@ public class MutilThreadQuery {
 	}
 
 	private static List<Object> testDruid(String sql, int threadCount, int executeCount) throws Exception {
-		DruidDataSource dataource = Druid.getDatasource();
+		DruidDataSource dataource = Druid.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "Druid");
 		} finally {
@@ -92,7 +92,7 @@ public class MutilThreadQuery {
 	}
 
 	private static List<Object> testHikariCP(String sql, int threadCount, int executeCount) throws Exception {
-		HikariDataSource dataource = HikariCP.getDatasource();
+		HikariDataSource dataource = HikariCP.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "HikariCP");
 		} finally {
@@ -101,7 +101,7 @@ public class MutilThreadQuery {
 	}
 
 	private static List<Object> testBeeCP_Compete(String sql, int threadCount, int executeCount) throws Exception {
-		BeeDataSource dataource = BeeCP_C.getDatasource();
+		BeeDataSource dataource = BeeCP_C.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "BeeCP_Compete");
 		} finally {
@@ -110,7 +110,7 @@ public class MutilThreadQuery {
 	}
 
 	private static List<Object> testBeeCP_Fair(String sql, int threadCount, int executeCount) throws Exception {
-		BeeDataSource dataource = BeeCP_F.getDatasource();
+		BeeDataSource dataource = BeeCP_F.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "BeeCP_Fair");
 		} finally {
@@ -135,8 +135,6 @@ public class MutilThreadQuery {
 
 		latch.await();//wait all thread done
 		List<Object> summaryList= TestResultPrint.printSummary(sourceName, testName, threads, threadCount, loopCount, scale);
-		
-		System.out.println();
 		return summaryList;
 	}
 
@@ -183,7 +181,6 @@ public class MutilThreadQuery {
 				allPoolResultList.add(poolResultList);
 				arvgList.add(new TestAvg(testPoolName, (BigDecimal) poolResultList.get(2)));
 			}
-			
 			if(pools.length>1)
 			 LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(5));
 		}

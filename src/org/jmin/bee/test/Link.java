@@ -3,13 +3,14 @@ package org.jmin.bee.test;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 /**
  * Some JDBC info
  * 
  * @author Administrator
  */
 public class Link {
-
 	public static String JDBC_USER;
 	public static String JDBC_PASSWORD;
 	public static String JDBC_DRIVER;
@@ -26,7 +27,8 @@ public class Link {
 	public static int REQUEST_TIMEOUT=8000;
 
 	public static String LINK_FILE = "Link.properties";
-
+	static Logger log = Logger.getLogger(Link.class);
+	
 	public static void loadConfig() throws Exception {
 		InputStream fileStream = null;
 
@@ -75,6 +77,10 @@ public class Link {
 			if (THREAD_QUERY_TABLE == null || THREAD_QUERY_TABLE.trim().length() == 0)
 				throw new Exception("'THREAD_QUERY_COUNT' not be configered");
 			
+			log.info("[JDBC INFO]");
+			log.info("[Driver:"+ JDBC_DRIVER +"]");
+			log.info("[URL:"+ JDBC_URL +"]");
+			log.info("\n");
 		} finally {
 			if (fileStream != null) {
 				try {

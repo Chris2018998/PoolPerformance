@@ -96,7 +96,7 @@ public class TestResultPrint {
 		resultList.add(mill2000);//12
 		resultList.add(mill8000);//13
 		resultList.add(mill8000M);//14
-
+	
 		log.info("Pool["+datasource+" -- "+testName+"] -- Execution count:"+ totalCount.toPlainString() + ",total time:"
 				+ totalSuccessTime.toPlainString() + "ms,avg time:"
 				+ (avgTime.toPlainString())+"ms"
@@ -117,6 +117,7 @@ public class TestResultPrint {
 		log.info("1000ms<time<=2000ms :" + mill2000);//12
 		log.info("2000ms<time<=8000ms :" + mill8000);//13
 		log.info("time>8000ms         :" + mill8000M);//14
+		log.info("\n");
 		return resultList;
 	}
 	
@@ -161,7 +162,7 @@ public class TestResultPrint {
 		tabelList.get(12).append("|1000ms<time<=2000ms");
 		tabelList.get(13).append("|2000ms<time<=800ms");
 		tabelList.get(14).append("|8000ms<time");
-		
+	
 		int pos=0;
 		for(int j=0;j<15;j++){
 		    StringBuffer tempBuf = tabelList.get(j);
@@ -179,5 +180,6 @@ public class TestResultPrint {
 		for(int j=0;j<15;j++){
 			log.info(tabelList.get(j));
 		}
+		log.info("\n\n");
 	}
 }

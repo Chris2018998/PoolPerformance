@@ -40,7 +40,7 @@ public class MutilThreadBorrow {
 	static Logger log = Logger.getLogger(MutilThreadBorrow.class);
 
 	private static List<Object> testDBCP(int threadCount, int executeCount) throws Exception {
-		org.apache.commons.dbcp.BasicDataSource dataource = DBCP.getDatasource();
+		org.apache.commons.dbcp.BasicDataSource dataource = DBCP.createDataSource();
 		try {
 			return test(threadCount, executeCount, dataource, "DBCP");
 		} finally {
@@ -49,7 +49,7 @@ public class MutilThreadBorrow {
 	}
 
 	private static List<Object> testDBCP2(int threadCount, int executeCount) throws Exception {
-		org.apache.commons.dbcp2.BasicDataSource dataource = DBCP2.getDatasource();
+		org.apache.commons.dbcp2.BasicDataSource dataource = DBCP2.createDataSource();
 		try {
 			return test(threadCount, executeCount, dataource, "DBCP2");
 		} finally {
@@ -58,7 +58,7 @@ public class MutilThreadBorrow {
 	}
 
 	private static List<Object> testC3P0(int threadCount, int executeCount) throws Exception {
-		ComboPooledDataSource dataource = C3P0.getDatasource();
+		ComboPooledDataSource dataource = C3P0.createDataSource();
 		try {
 			return test(threadCount, executeCount, dataource, "C3P0");
 		} finally {
@@ -67,7 +67,7 @@ public class MutilThreadBorrow {
 	}
 
 	private static List<Object> testTomcatJDBC(int threadCount, int executeCount) throws Exception {
-		org.apache.tomcat.jdbc.pool.DataSource dataource = TomcatJDBC.getDatasource();
+		org.apache.tomcat.jdbc.pool.DataSource dataource = TomcatJDBC.createDataSource();
 		try {
 			return test(threadCount, executeCount, dataource, "Tomcat");
 		} finally {
@@ -76,7 +76,7 @@ public class MutilThreadBorrow {
 	}
 
 	private static List<Object> testVibur(int threadCount, int executeCount) throws Exception {
-		ViburDBCPDataSource dataource = Vibur.getDatasource();
+		ViburDBCPDataSource dataource = Vibur.createDataSource();
 		try {
 			return test(threadCount, executeCount, dataource, "Vibur");
 		} finally {
@@ -85,7 +85,7 @@ public class MutilThreadBorrow {
 	}
 
 	private static List<Object> testDruid(int threadCount, int executeCount) throws Exception {
-		DruidDataSource dataource = Druid.getDatasource();
+		DruidDataSource dataource = Druid.createDataSource();
 		try {
 			return test(threadCount, executeCount, dataource, "Druid");
 		} finally {
@@ -94,7 +94,7 @@ public class MutilThreadBorrow {
 	}
 
 	private static List<Object> testHikariCP(int threadCount, int executeCount) throws Exception {
-		HikariDataSource dataource = HikariCP.getDatasource();
+		HikariDataSource dataource = HikariCP.createDataSource();
 		try {
 			return test(threadCount, executeCount, dataource, "HikariCP");
 		} finally {
@@ -103,7 +103,7 @@ public class MutilThreadBorrow {
 	}
 
 	private static List<Object> testBeeCP_Compete(int threadCount, int executeCount) throws Exception {
-		BeeDataSource dataource = BeeCP_C.getDatasource();
+		BeeDataSource dataource = BeeCP_C.createDataSource();
 		try {
 			return test(threadCount, executeCount, dataource, "BeeCP_Compete");
 		} finally {
@@ -112,7 +112,7 @@ public class MutilThreadBorrow {
 	}
 
 	private static List<Object> testBeeCP_Fair(int threadCount, int executeCount) throws Exception {
-		BeeDataSource dataource = BeeCP_F.getDatasource();
+		BeeDataSource dataource = BeeCP_F.createDataSource();
 		try {
 			return test(threadCount, executeCount, dataource, "BeeCP_Fair");
 		} finally {
@@ -122,8 +122,8 @@ public class MutilThreadBorrow {
 
 	private static List<Object> test(int threadCount, int loopCount, DataSource dataSource, String sourceName)
 			throws Exception {
-		
-		//log.info("Pool["+sourceName+" -- "+testName+"] -- Begin{"+threadCount+"threads X "+loopCount+"iterate}");
+	
+		log.info("Pool["+sourceName+" -- "+testName+"] -- Begin{"+threadCount+"threads X "+loopCount+"iterate}");
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.SECOND, 3);
 		long concurrentTime = calendar.getTimeInMillis();
@@ -136,8 +136,6 @@ public class MutilThreadBorrow {
 		}
 		latch.await();//wait all thread done
 		List<Object> summaryList= TestResultPrint.printSummary(sourceName, testName, threads, threadCount, loopCount, scale);
-		
-		System.out.println();
 		return summaryList;
 	}
 
