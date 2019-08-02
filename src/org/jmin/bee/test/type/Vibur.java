@@ -6,12 +6,8 @@ import org.jmin.bee.test.Link;
 import org.vibur.dbcp.ViburDBCPDataSource;
 
 public class Vibur {
-	private static ViburDBCPDataSource vibur;
-	static{
-		initDataSource();
-	}
-	public static void initDataSource() {
-		vibur = new ViburDBCPDataSource();
+	public static ViburDBCPDataSource createDataSource() {
+		ViburDBCPDataSource vibur = new ViburDBCPDataSource();
         vibur.setJdbcUrl( Link.JDBC_URL );
         vibur.setUsername(Link.JDBC_USER);
         vibur.setPassword(Link.JDBC_PASSWORD);
@@ -27,13 +23,10 @@ public class Vibur {
         vibur.setUseNetworkTimeout(true);
         vibur.setNetworkTimeoutExecutor(Executors.newFixedThreadPool(1));
         
-        
         vibur.setClearSQLWarnings(true);
         vibur.setResetDefaultsAfterUse(true);
 		vibur.setPoolFair(false);
         vibur.start();
-	}
-	public static ViburDBCPDataSource getDatasource() {
-		return vibur;
+        return vibur;
 	}
 }

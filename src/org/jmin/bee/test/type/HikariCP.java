@@ -9,12 +9,7 @@ import com.zaxxer.hikari.HikariDataSource;
  * 光，very fast 
  */
 public class HikariCP {
-	private static HikariDataSource datasource;
-	static {
-		initDataSource();
-	}
-
-	public static void initDataSource() {
+	public static HikariDataSource createDataSource() {
 		HikariConfig config = new HikariConfig();
 		config.setJdbcUrl(Link.JDBC_URL);
 		config.setDriverClassName(Link.JDBC_DRIVER);
@@ -24,10 +19,6 @@ public class HikariCP {
 	    config.setMaximumPoolSize(Link.POOL_MAX_ACTIVE);
 		config.setConnectionTimeout(Link.REQUEST_TIMEOUT);
 	    config.setConnectionTestQuery("select 1 from dual");
-		datasource = new HikariDataSource(config);   
-	}
-
-	public static HikariDataSource getDatasource() {
-		return datasource;
+		return new HikariDataSource(config);   
 	}
 }

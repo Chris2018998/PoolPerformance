@@ -14,13 +14,7 @@ import org.jmin.bee.test.Link;
  */
 public class TomcatJDBC {
 
-	private static DataSource datasource;
-
-	static{
-		initDataSource();
-	}
-
-	public static void initDataSource() {
+	public static org.apache.tomcat.jdbc.pool.DataSource createDataSource() {
 		PoolProperties p = new PoolProperties();
 		p.setUrl(Link.JDBC_URL);
 		p.setDriverClassName(Link.JDBC_DRIVER);
@@ -53,13 +47,8 @@ public class TomcatJDBC {
 				}
 			}
 		});
-		datasource = new DataSource();
+		DataSource datasource = new DataSource();
 		datasource.setPoolProperties(p);
-	}
-
-
-	public static DataSource getDatasource() {
 		return datasource;
 	}
-	
 }

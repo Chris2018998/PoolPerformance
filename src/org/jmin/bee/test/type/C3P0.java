@@ -10,14 +10,9 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
  * CP30
  */
 public class C3P0 {
-
-	private static ComboPooledDataSource datasource;
-	static {
-		initDataSource();
-	}
-
-	public static void initDataSource() {
-		datasource = new ComboPooledDataSource();
+	
+	public static ComboPooledDataSource createDataSource() {
+		ComboPooledDataSource datasource = new ComboPooledDataSource();
 		try {
 			datasource.setDriverClass(Link.JDBC_DRIVER);
 		} catch (PropertyVetoException e1) {
@@ -34,9 +29,6 @@ public class C3P0 {
 		datasource.setTestConnectionOnCheckin(false);
 		datasource.setTestConnectionOnCheckout(true);
 		datasource.setPreferredTestQuery("select 1 from dual");
-	}
-
-	public static ComboPooledDataSource getDatasource() {
 		return datasource;
 	}
 }

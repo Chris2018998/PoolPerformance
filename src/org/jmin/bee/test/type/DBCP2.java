@@ -6,14 +6,9 @@ import org.jmin.bee.test.Link;
 /**
  * DBCP
  */
-public class DBCP2 extends Thread {
-
-	private static BasicDataSource datasource;
-	static{
-		initDataSource();
-	}
-	public static void initDataSource() {
-		datasource = new BasicDataSource();
+public class DBCP2{
+	public static BasicDataSource createDataSource() {
+		BasicDataSource datasource = new BasicDataSource();
 		datasource.setUrl(Link.JDBC_URL);
 		datasource.setDriverClassName(Link.JDBC_DRIVER);
 		datasource.setUsername(Link.JDBC_USER);
@@ -29,9 +24,7 @@ public class DBCP2 extends Thread {
 		
 		datasource.setTestOnBorrow(true);
 		datasource.setTestOnReturn(false);
-		datasource.setValidationQuery("select 1 from dual");	
-	}
-	public static BasicDataSource getDatasource() {
+		datasource.setValidationQuery("select 1 from dual");
 		return datasource;
 	}
 }

@@ -9,18 +9,8 @@ import org.jmin.bee.test.Link;
  * 
  */
 public class BeeCP_C {
-
-	private static BeeDataSource datasource;
-
-	static {
-		try {
-			initDataSource();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void initDataSource() throws Exception{
+	
+	public static BeeDataSource  createDataSource() throws Exception{
 		BeeDataSourceConfig sourceInfo =new  BeeDataSourceConfig(Link.JDBC_DRIVER, 
 				Link.JDBC_URL,
 				Link.JDBC_USER, 
@@ -34,10 +24,6 @@ public class BeeCP_C {
 		sourceInfo.setCheckOnBorrow(true);
 		sourceInfo.setCheckOnReturn(false);
 		//sourceInfo.setPoolImplementClassName("org.jmin.bee.pool.ConnectionPool2");
-		datasource = new BeeDataSource(sourceInfo);
-	}  	
-   
-	public static BeeDataSource getDatasource() {
-		return datasource;
-	}
+		return new BeeDataSource(sourceInfo);
+	}  		 
 }

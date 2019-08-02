@@ -8,14 +8,8 @@ import com.alibaba.druid.pool.DruidDataSource;
  * product from Chinese alibaba
  */
 public class Druid {
-
-	private static DruidDataSource datasource;
-	static {
-		initDataSource();
-	}
-
-	public static void initDataSource() {
-		datasource = new DruidDataSource();
+	public static DruidDataSource createDataSource() {
+		DruidDataSource datasource = new DruidDataSource();
 		datasource.setUrl(Link.JDBC_URL);
 		datasource.setUsername(Link.JDBC_USER);
 		datasource.setPassword(Link.JDBC_PASSWORD);
@@ -26,15 +20,12 @@ public class Druid {
 		datasource.setInitialSize(Link.POOL_INIT_SIZE);
 		datasource.setPoolPreparedStatements(true);
 		datasource.setMaxPoolPreparedStatementPerConnectionSize(20);
-//	datasource.setMinEvictableIdleTimeMillis(3000000);
-//	datasource.setMaxWaitThreadCount(1000000);
+//		datasource.setMinEvictableIdleTimeMillis(3000000);
+//		datasource.setMaxWaitThreadCount(1000000);
         datasource.setMaxWait(Link.REQUEST_TIMEOUT);
 		datasource.setTestOnBorrow(true);
 		datasource.setTestOnReturn(false);
 		datasource.setValidationQuery("select 1 from dual");
-	}
-
-	public static DruidDataSource getDatasource() {
 		return datasource;
 	}
 }
