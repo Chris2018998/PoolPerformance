@@ -2,19 +2,15 @@
 ---
 Java连接池性能测试
 
-
 测试目标
 ---
-
-模拟单线程和多线程访问连接池100万次，并打印耗时分布，平时耗时，失败次数等，最后依据平均耗时对各连接池进行排名。
+以单线程或多线程访问连接池100万次，并打印耗时分布，平时耗时，失败次数等，最后依据平均耗时对各连接池进行排名。
 
 单次耗时说明
 ---
-
 1：取连接耗时 [datasource.getConenciton(), conneciton.close()]
 
 2：查询耗时   [datasource.getConenciton(), conneciton.prepareStatement(), statement.execute(), conneciton.close()]
-
 
 连接池清单(版本请见lib目录)
 ---
@@ -30,20 +26,19 @@ Java连接池性能测试
 
 6：Druid         中国阿里开发，主要用于监控
 
-7：HikariCP     ‘光’连接池，美国大神作品（比喻像光一样快）
+7：HikariCP      ‘光’连接池，美国大神作品（比喻像光一样快，意指性能超好）
 
 8：BeeCP         小蜜蜂连接池
 
-
-测试机器配置:
+测试配置与工具:
 ---
 1：JVM:     Java8_64(推荐使用最新版本的Java8)
 
-2：驱动：    光连接池为性能测试专门开发一套JDBC驱动（也可使用其他驱动）
+2：Driver： 光连接池驱动(光的作者为连接池性能测试专门开发的一套JDBC驱动，也可使用其他驱动)    
 
 3：CPU:     频率尽量高，推荐使用新版64位多核CPU
 
-4：内存：   8G(越高越好)
+4：内存：    8G(越高越好)
 
 
 执行文件说明
@@ -56,13 +51,14 @@ Java连接池性能测试
 
 4: run/TestSingleQuery.bat  (单线程并发取查询：默认1个线程各自执行100万次））
 
-5: run/Link.properties      (测试参数配置文件）
+5: run/TestAll.bat          (执行上述4个测试））
 
-*提示：测试前，请设置JAVA_HOME(setJAVA_HOME.bat)
+6: run/Link.properties      (测试参数配置文件）
+
+*提示：测试前，请先设置JAVA_HOME(setJAVA_HOME.bat)
 
 测试使用的表
 ---
-
 (也可更换为其他表,配置项：Link.properties/THREAD_QUERY_TABLE:若使用光连接驱动，可不用更改)
 
 DROP TABLE TEST_USER;
@@ -80,7 +76,4 @@ CREATE TABLE TEST_USER(
 
 最后说明
 ---
-
 欢迎对连接池有兴趣的网友一起开发和维护
-
-
