@@ -16,13 +16,14 @@ public class BeeCP_F {
 				Link.JDBC_USER, 
 				Link.JDBC_PASSWORD);
 
-		sourceInfo.setPoolMaxSize(Link.POOL_MAX_ACTIVE);
-		sourceInfo.setPoolInitSize(Link.POOL_INIT_SIZE);
-		sourceInfo.setMaxWaitTime(Link.REQUEST_TIMEOUT);
- 		sourceInfo.setValidationQuerySQL("select 1 from dual");
-		sourceInfo.setFairMode(true);
-		sourceInfo.setCheckOnBorrow(true);
-		sourceInfo.setCheckOnReturn(false);
+		sourceInfo.setMaximumPoolSize(Link.POOL_MAX_ACTIVE);
+		sourceInfo.setConcurrentSize(Link.POOL_MAX_ACTIVE);
+		sourceInfo.setInitialSize(Link.POOL_INIT_SIZE);
+		sourceInfo.setMaxWait(Link.REQUEST_TIMEOUT);
+ 		sourceInfo.setValidationQuery("select 1 from dual");
+		sourceInfo.setFairQueue(true);
+		sourceInfo.setTestOnBorrow(true);
+		sourceInfo.setTestOnReturn(false);
 		//sourceInfo.setPoolImplementClassName("org.jmin.bee.pool.ConnectionPool2");
 		return new BeeDataSource(sourceInfo);
 	}  		 
