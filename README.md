@@ -49,7 +49,7 @@ Java连接池性能测试
 
 3: run/TestSingleBorrow     (单线程并发取连接: 默认1个线程各自执行100万次）
 
-4: run/TestSingleQuery.bat  (单线程并发取查询：默认1个线程各自执行100万次））
+4: run/TestSingleQuery.bat  (单线程并发取查询：默认1个线程各自执行100万次）
 
 5: run/TestAll.bat          (执行上述4个测试））
 
