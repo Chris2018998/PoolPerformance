@@ -28,7 +28,7 @@ Java连接池性能测试
 
 7：HikariCP      ‘光’连接池，美国大神作品（比喻像光一样快，意指性能超好）
 
-8：BeeCP         小蜜蜂连接池
+8：BeeCP         小蜜蜂连接池（请从这里 (https://github.com/Chris2018998/BeeCP) 下载最新Jar包，并放入lib）
 
 测试配置与工具:
 ---
