@@ -16,7 +16,7 @@ public class BeeCP_C {
 				Link.JDBC_USER, 
 				Link.JDBC_PASSWORD);
 
-		sourceInfo.setMaximumPoolSize(Link.POOL_MAX_ACTIVE);
+		sourceInfo.setMaxActive(Link.POOL_MAX_ACTIVE);
 		sourceInfo.setConcurrentSize(Link.POOL_MAX_ACTIVE);
 		sourceInfo.setInitialSize(Link.POOL_INIT_SIZE);
 		sourceInfo.setMaxWait(Link.REQUEST_TIMEOUT);
