@@ -21,10 +21,12 @@ public class BeeCP_C {
 		sourceInfo.setInitialSize(Link.POOL_INIT_SIZE);
 		sourceInfo.setMaxWait(Link.REQUEST_TIMEOUT);
  		sourceInfo.setValidationQuery("select 1 from dual");
+ 		//sourceInfo.setConcurrentSize(4);
 		sourceInfo.setFairQueue(false);
 		sourceInfo.setTestOnBorrow(true);
 		sourceInfo.setTestOnReturn(false);
 		//sourceInfo.setPoolImplementClassName("org.jmin.bee.pool.ConnectionPool2");
-		return new BeeDataSource(sourceInfo);
+		BeeDataSource datasource=new BeeDataSource(sourceInfo);
+		return datasource;
 	}  		 
 }

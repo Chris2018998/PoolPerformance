@@ -16,7 +16,7 @@ public class BeeCP_F {
 				Link.JDBC_USER, 
 				Link.JDBC_PASSWORD);
 
-		sourceInfo.setMaximumPoolSize(Link.POOL_MAX_ACTIVE);
+		sourceInfo.setMaxActive(Link.POOL_MAX_ACTIVE);
 		sourceInfo.setConcurrentSize(Link.POOL_MAX_ACTIVE);
 		sourceInfo.setInitialSize(Link.POOL_INIT_SIZE);
 		sourceInfo.setMaxWait(Link.REQUEST_TIMEOUT);
@@ -25,6 +25,8 @@ public class BeeCP_F {
 		sourceInfo.setTestOnBorrow(true);
 		sourceInfo.setTestOnReturn(false);
 		//sourceInfo.setPoolImplementClassName("org.jmin.bee.pool.ConnectionPool2");
-		return new BeeDataSource(sourceInfo);
+	
+		BeeDataSource datasource=new BeeDataSource(sourceInfo);
+		return datasource;
 	}  		 
 }
