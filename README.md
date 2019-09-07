@@ -26,8 +26,9 @@ Java连接池性能测试
 
 6：Druid         中国阿里开发，主要用于监控
 
-7：HikariCP      ‘光’连接池，美国大神作品（比喻像光一样快，意指性能超好）
-
+7：HikariCP      ‘光’连接池，新一代连接池，由美国JDBC大师：Brett Wooldridge创造（比喻像光一样快，意指性能超好，确实非常优秀）
+                  项目地址： https://github.com/brettwooldridge/HikariCP
+                               
 8：BeeCP         小蜜蜂连接池（请从这里 (https://github.com/Chris2018998/BeeCP) 下载最新Jar包，并放入lib）
 
 测试配置与工具:
