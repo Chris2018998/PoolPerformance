@@ -14,32 +14,33 @@ Java连接池性能测试
 
 连接池清单(版本请见lib目录)
 ---
-1：DBCP，        老牌连接池
+1：DBCP，       老牌连接池
 
-2：DBCP2         老牌连接池
+2：DBCP2        老牌连接池
 
-3：C3P0          老牌连接池
+3：C3P0         老牌连接池
 
-4：TOMCAT-JDBC   Tomcat新开发的连接池
+4：TOMCAT-JDBC  Tomcat新开发的连接池
 
-5：Vibur:        (暂未了解)
+5：Vibur:       (暂未了解)
 
-6：Druid         中国阿里开发，主要用于监控
+6：Druid        德鲁伊连接池(由阿里知名的JDBC专家温少开发，项目地址：https://github.com/wenshao/druid)
 
-7：HikariCP      ‘光’连接池（新一代连接池，由美国JDBC大师Brett Wooldridge创造，比喻像光一样快，意指性能超好，确实非常优秀）
-                  项目地址： https://github.com/brettwooldridge/HikariCP
-                               
-8：BeeCP         小蜜蜂连接池（请从这里 (https://github.com/Chris2018998/BeeCP) 下载最新Jar包，并放入lib）
+7：HikariCP    ‘光’连接池(性能很好，由美国大咖开发，被很多人追捧为世界最快的连接池，项目地址：https://github.com/brettwooldridge/HikariCP)                                               
+8：BeeCP       小蜜蜂连接池（个人学习小作品，请从这里 (https://github.com/Chris2018998/BeeCP) 下载最新Jar包，并放入lib）
+
+各连接池的性能测试结果，请问地址：https://github.com/Chris2018998/BeeCP
+
 
 测试配置与工具:
 ---
 1：JVM:     Java8_64(推荐使用最新版本的Java8)
 
-2：Driver： 光连接池驱动(光的作者为连接池性能测试专门开发的一套JDBC驱动，也可使用其他实现JDBC接口的通用型驱动)    
+2：Driver： 光连接池驱动(‘光’连接池的作者为连接池性能测试专门开发的一套简要JDBC驱动，也可使用其他实现JDBC接口的通用型驱动)    
 
 3：CPU:     频率尽量高，推荐使用新版64位多核CPU
 
-4：内存：    8G(越高越好)
+4：内存：    8G(尽量高点)
 
 
 执行文件说明
@@ -74,7 +75,9 @@ CREATE TABLE TEST_USER(
 
 可依据实际情况再调整，编译后打包替换文件:lib/performance.jar
 
-
-开发邀请
+交流与讨论
 ---
-欢迎对连接池有兴趣的网友一起开发和维护
+
+Email:Chris2018998@tom.com
+
+
