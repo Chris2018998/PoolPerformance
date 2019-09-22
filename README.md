@@ -24,10 +24,11 @@ Java连接池性能测试
 
 5：Vibur:       (暂未了解)
 
-6：Druid        德鲁伊连接池(由阿里知名的JDBC专家温少开发，项目地址：https://github.com/wenshao/druid)
+6：Druid        德鲁伊连接池(阿里知名JDBC专家温少开发)
 
-7：HikariCP    ‘光’连接池(性能很好，由美国大咖开发，被很多人追捧为世界最快的连接池，项目地址：https://github.com/brettwooldridge/HikariCP)                                               
-8：BeeCP       小蜜蜂连接池（个人学习小作品，请从这里 (https://github.com/Chris2018998/BeeCP) 下载最新Jar包，并放入lib）
+7：HikariCP    ‘光’连接池(美国大咖开发，被很多人追捧为Java世界最快的连接池)
+
+8：BeeCP       小蜜蜂连接池（学习小作品，请从这里 (https://github.com/Chris2018998/BeeCP) 下载最新Jar包，并放入lib）
 
 各连接池的性能测试结果，请问地址：https://github.com/Chris2018998/BeeCP
 
