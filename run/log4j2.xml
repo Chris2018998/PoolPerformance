@@ -2,25 +2,28 @@
 <configuration status="error">
 	<appenders>
 		<Console name="Console" target="SYSTEM_OUT">
-			<PatternLayout pattern="%m%n" />
+			<PatternLayout pattern="[%-p]%d{yyyy-MM-dd HH:mm:ss}-%m%n" />
 		</Console>
 		<RollingFile name="RollingFile" fileName="JDBCPool.log"
 			filePattern="JDBCPool_%d{yyyy-MM-dd}.log">
-			<PatternLayout pattern="%m%n" />
+			<PatternLayout pattern="[%-p]%d{yyyy-MM-dd HH:mm:ss}-%m%n" />
 			<SizeBasedTriggeringPolicy size="10MB" />
 		</RollingFile>
+		<Async name="ASYNC">
+			<AppenderRef ref="Console" />
+		</Async>
+		<Async name="ASYNC2">
+			<AppenderRef ref="RollingFile" />
+		</Async>
 	</appenders>
 
 	<loggers>
-		<logger name="org.jmin.bee.test" level="INFO">
-		   <appender-ref ref="RollingFile"/>  
+		<root level="INFO">
+		 <AppenderRef ref="ASYNC"/>
+		  <AppenderRef ref="ASYNC2"/>
+		</root>
+		<logger name="test" level="INFO">
+		 <AppenderRef ref="ASYNC2"/>
 		</logger>
-		<root level="error">
-            <appender-ref ref="Console"/>
-        </root>
 	</loggers>
 </configuration>  
-
-
-
- 
