@@ -24,7 +24,6 @@ public class BeeCP_C {
 		sourceInfo.setFairQueue(false);
 		sourceInfo.setTestOnBorrow(true);
 		sourceInfo.setTestOnReturn(false);
-		BeeDataSource datasource=new BeeDataSource(sourceInfo);
-		return datasource;
+		return new BeeDataSource(sourceInfo);
 	}  		 
 }
