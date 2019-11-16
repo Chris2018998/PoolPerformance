@@ -24,10 +24,6 @@ public class BeeCP_F {
 		sourceInfo.setFairQueue(true);
 		sourceInfo.setTestOnBorrow(true);
 		sourceInfo.setTestOnReturn(false);
-		sourceInfo.setConcurrentSize(8);
-		//sourceInfo.setPoolImplementClassName("org.jmin.bee.pool.ConnectionPool2");
-	
-		BeeDataSource datasource=new BeeDataSource(sourceInfo);
-		return datasource;
+		return new BeeDataSource(sourceInfo);;
 	}  		 
 }
