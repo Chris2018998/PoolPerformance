@@ -6,8 +6,8 @@ import cn.bee.dbcp.test.Link;
 import org.vibur.dbcp.ViburDBCPDataSource;
 
 public class Vibur {
-	public static ViburDBCPDataSource createDataSource()throws Exception {
-		ViburDBCPDataSource vibur = new ViburDBCPDataSource();
+    public static ViburDBCPDataSource createDataSource()throws Exception {
+	ViburDBCPDataSource vibur = new ViburDBCPDataSource();
         vibur.setJdbcUrl( Link.JDBC_URL );
         vibur.setUsername(Link.JDBC_USER);
         vibur.setPassword(Link.JDBC_PASSWORD);
