@@ -11,6 +11,7 @@ public class Vibur {
         vibur.setJdbcUrl( Link.JDBC_URL );
         vibur.setUsername(Link.JDBC_USER);
         vibur.setPassword(Link.JDBC_PASSWORD);
+        vibur.setDriverClassName(Link.JDBC_DRIVER);
         vibur.setConnectionTimeoutInMs(Link.REQUEST_TIMEOUT);
         vibur.setValidateTimeoutInSeconds(3);
         vibur.setLoginTimeoutInSeconds(2);
@@ -25,8 +26,8 @@ public class Vibur {
         
         vibur.setClearSQLWarnings(true);
         vibur.setResetDefaultsAfterUse(true);
-		vibur.setPoolFair(false);
+	vibur.setPoolFair(false);
         vibur.start();
-		return vibur;
-	}
+	return vibur;
+    }
 }
