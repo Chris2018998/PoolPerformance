@@ -80,12 +80,7 @@ public class Link {
 				throw new Exception("'THREAD_QUERY_COUNT' not be configered");
 			if (THREAD_QUERY_TABLE == null || THREAD_QUERY_TABLE.trim().length() == 0)
 				throw new Exception("'THREAD_QUERY_COUNT' not be configered");
-			
-			if(JDBC_DRIVER!=null && JDBC_DRIVER.trim().length()>0){
-				Class driverClass=Class.forName(JDBC_DRIVER.trim());
-				DriverManager.registerDriver((Driver)driverClass.newInstance() );
-			}
-			
+	
 			log.info("[JDBC INFO]");
 			log.info("[Driver:"+ JDBC_DRIVER +"]");
 			log.info("[URL:"+ JDBC_URL +"]");
