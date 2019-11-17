@@ -21,7 +21,7 @@ public class BeeCP_F {
 		sourceInfo.setInitialSize(Link.POOL_INIT_SIZE);
 		sourceInfo.setMaxWait(Link.REQUEST_TIMEOUT);
  		sourceInfo.setValidationQuery("select 1 from dual");
-		sourceInfo.setFairQueue(true);
+		sourceInfo.setFairMode(true);
 		sourceInfo.setTestOnBorrow(true);
 		sourceInfo.setTestOnReturn(false);
 		return new BeeDataSource(sourceInfo);;
