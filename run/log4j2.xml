@@ -18,6 +18,7 @@
 	</appenders>
 
 	<loggers>
+	   <logger name="org.vibur" level="OFF"/>
 	   <logger name="cn.bee.dbcp.pool" level="INFO"/>
 		<root level="INFO">
 		 <AppenderRef ref="ASYNC"/>
