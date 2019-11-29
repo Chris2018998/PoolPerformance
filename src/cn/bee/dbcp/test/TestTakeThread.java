@@ -54,7 +54,7 @@ class TestTakeThread extends Thread  implements TestResult {
 		if (waitTime <= 0)
 			waitTime = 10;
 		LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(waitTime));
-		
+	
 		for (int i = 0; i < loopCount; i++) {
 			startTime[i] = nanoTime();
 			if (execute(i)) {
@@ -74,8 +74,9 @@ class TestTakeThread extends Thread  implements TestResult {
 		Connection con = null;
 		try {
 			con = datasource.getConnection();
+			//Thread.sleep(1);
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			ok=false;
 		} finally {
 			ConnectionUtil.oclose(con);

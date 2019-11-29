@@ -10,7 +10,8 @@ import java.util.concurrent.locks.LockSupport;
 
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vibur.dbcp.ViburDBCPDataSource;
 
 import com.alibaba.druid.pool.DruidDataSource;
@@ -36,7 +37,7 @@ import cn.bee.dbcp.test.type.Vibur;
 public class MutilThreadQuery {
 	static final int scale=4;
 	static String testName = "Multiple thread query";
-	static Logger log = Logger.getLogger(MutilThreadQuery.class);
+	static Logger log = LoggerFactory.getLogger(MutilThreadQuery.class);
 
 	private static List<Object> testDBCP(String sql, int threadCount, int executeCount) throws Exception {
 		org.apache.commons.dbcp.BasicDataSource dataource = DBCP.createDataSource();
@@ -124,7 +125,7 @@ public class MutilThreadQuery {
 		
 		log.info("Pool["+sourceName+" -- "+testName+"] -- Begin{"+threadCount+"threads X "+loopCount+"iterate}");
 		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.SECOND, 3);
+		calendar.add(Calendar.SECOND, 5);
 		long concurrentTime = calendar.getTimeInMillis();
 
 		CountDownLatch latch = new CountDownLatch(threadCount);
@@ -142,6 +143,8 @@ public class MutilThreadQuery {
 	public static void main(String[] args) throws Exception {
 		Link.loadConfig();
 		String sql = "select * from " + Link.THREAD_QUERY_TABLE;
+		
+		
 		int threadCount = Link.REQUEST_THREAD_COUNT;
 		int executeCount = Link.THREAD_QUERY_COUNT;
 		String poolName = Link.POOL_TEST;

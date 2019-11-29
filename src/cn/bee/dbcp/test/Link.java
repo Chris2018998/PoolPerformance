@@ -1,13 +1,10 @@
 package cn.bee.dbcp.test;
 
-import cn.bee.dbcp.test.Link;
-
 import java.io.InputStream;
-import java.sql.Driver;
-import java.sql.DriverManager;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Some JDBC info
@@ -31,7 +28,7 @@ public class Link {
 	public static int REQUEST_TIMEOUT=8000;
 
 	public static String LINK_FILE = "Link.properties";
-	static Logger log = Logger.getLogger(Link.class);
+	static Logger log = LoggerFactory.getLogger(Link.class);
 	
 	public static void loadConfig() throws Exception {
 		InputStream fileStream = null;
@@ -80,7 +77,12 @@ public class Link {
 				throw new Exception("'THREAD_QUERY_COUNT' not be configered");
 			if (THREAD_QUERY_TABLE == null || THREAD_QUERY_TABLE.trim().length() == 0)
 				throw new Exception("'THREAD_QUERY_COUNT' not be configered");
-	
+			
+//			if(JDBC_DRIVER!=null && JDBC_DRIVER.trim().length()>0){
+//				Class driverClass=Class.forName(JDBC_DRIVER.trim());
+//				DriverManager.registerDriver((Driver)driverClass.newInstance() );
+//			}
+//			
 			log.info("[JDBC INFO]");
 			log.info("[Driver:"+ JDBC_DRIVER +"]");
 			log.info("[URL:"+ JDBC_URL +"]");

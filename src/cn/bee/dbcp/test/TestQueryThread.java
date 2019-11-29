@@ -60,11 +60,11 @@ class TestQueryThread extends Thread implements TestResult {
 		long waitTime = targetRunMillSeconds - currentTimeMillis();
 		if (waitTime <= 0)
 			waitTime = 10;
-
+		
 		LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(waitTime));
 		for (int i = 0; i < loopCount; i++) {
 			startTime[i]=nanoTime();
-			if (executeSQL(i, this.SQL)) {
+			if (executeSQL(i,SQL)) {
 				successCount++;
 				endTime[i]=nanoTime();
 			} else {

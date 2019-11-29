@@ -10,7 +10,9 @@ import java.util.concurrent.locks.LockSupport;
 
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import cn.bee.dbcp.test.type.BeeCP_C;
 import cn.bee.dbcp.test.type.BeeCP_F;
 import cn.bee.dbcp.test.type.C3P0;
@@ -36,7 +38,7 @@ import cn.bee.dbcp.BeeDataSource;
 public class SingleThreadBorrow {
 	static final int scale=6;
 	static String testName = "Single thread borrow";
-	static Logger log = Logger.getLogger(SingleThreadBorrow.class);
+	static Logger log = LoggerFactory.getLogger(SingleThreadBorrow.class);
 
 	private static List<Object> testDBCP(int threadCount, int executeCount) throws Exception {
 		org.apache.commons.dbcp.BasicDataSource dataource = DBCP.createDataSource();

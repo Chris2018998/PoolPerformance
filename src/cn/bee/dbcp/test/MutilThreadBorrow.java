@@ -12,7 +12,15 @@ import java.util.regex.Pattern;
 
 import javax.sql.DataSource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.vibur.dbcp.ViburDBCPDataSource;
+
+import com.alibaba.druid.pool.DruidDataSource;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.zaxxer.hikari.HikariDataSource;
+
+import cn.bee.dbcp.BeeDataSource;
 import cn.bee.dbcp.test.type.BeeCP_C;
 import cn.bee.dbcp.test.type.BeeCP_F;
 import cn.bee.dbcp.test.type.C3P0;
@@ -22,13 +30,6 @@ import cn.bee.dbcp.test.type.Druid;
 import cn.bee.dbcp.test.type.HikariCP;
 import cn.bee.dbcp.test.type.TomcatJDBC;
 import cn.bee.dbcp.test.type.Vibur;
-import org.vibur.dbcp.ViburDBCPDataSource;
-
-import com.alibaba.druid.pool.DruidDataSource;
-import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.zaxxer.hikari.HikariDataSource;
-
-import cn.bee.dbcp.BeeDataSource;
 
 /**
  * Performance of multiple thread take connection
@@ -38,7 +39,7 @@ import cn.bee.dbcp.BeeDataSource;
 public class MutilThreadBorrow {
 	static final int scale = 4;
 	static String testName = "Multiple thread borrow";
-	static Logger log = Logger.getLogger(MutilThreadBorrow.class);
+	static Logger log = LoggerFactory.getLogger(MutilThreadBorrow.class);
 
 	private static List<Object> testDBCP(int threadCount, int executeCount) throws Exception {
 		org.apache.commons.dbcp.BasicDataSource dataource = DBCP.createDataSource();

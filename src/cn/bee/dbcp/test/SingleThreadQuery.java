@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 
 import javax.sql.DataSource;
-
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import cn.bee.dbcp.test.type.BeeCP_C;
 import cn.bee.dbcp.test.type.BeeCP_F;
 import cn.bee.dbcp.test.type.C3P0;
@@ -37,7 +37,7 @@ import cn.bee.dbcp.BeeDataSource;
 public class SingleThreadQuery {
 	static final int scale = 6;
 	static final String testName = "Single thread query";
-	static final Logger log = Logger.getLogger(SingleThreadQuery.class);
+	static Logger log = LoggerFactory.getLogger(SingleThreadQuery.class);
 
 	private static List<Object> testDBCP(String sql, int threadCount, int executeCount) throws Exception {
 		org.apache.commons.dbcp.BasicDataSource dataource = DBCP.createDataSource();

@@ -22,4 +22,8 @@ public class TestAvg implements Comparable<TestAvg> {
 	public int compareTo(TestAvg o) {
 		return avgValue.compareTo(o.avgValue);
 	}
+	
+	
+	
+	
 }

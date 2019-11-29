@@ -6,11 +6,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestResultPrint {
-	static Logger log = Logger.getLogger(TestResultPrint.class);
-
+	static Logger log = LoggerFactory.getLogger(TestResultPrint.class);
 	public static List<Object> printSummary(String datasource, String testName, TestResult[] threads, int threadCount,
 			int loopCount, int scale) {
 
@@ -131,7 +131,7 @@ public class TestResultPrint {
 			TestAvg avg = arvgList.get(i);
 			buf.append(avg.getPoolName() + "(" + avg.getAvgValue().toPlainString() + ")");
 		}
-		log.info(buf);
+		log.info(buf.toString());
 		
 		StringBuffer headBuffer = new StringBuffer();
 		StringBuffer headBuffer2 = new StringBuffer();
@@ -175,10 +175,10 @@ public class TestResultPrint {
 		    if(j==14)tempBuf.append("|");
 		}
 		
-		log.info(headBuffer);
-		log.info(headBuffer2);
+		log.info(headBuffer.toString());
+		log.info(headBuffer2.toString());
 		for(int j=0;j<15;j++){
-			log.info(tabelList.get(j));
+			log.info(tabelList.get(j).toString());
 		}
 		log.info("\n\n");
 	}
