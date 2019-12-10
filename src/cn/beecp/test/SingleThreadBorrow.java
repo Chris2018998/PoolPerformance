@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.sql.DataSource;
 
@@ -32,14 +30,14 @@ import cn.beecp.test.type.Vibur;
 import cn.beecp.BeeDataSource;
 
 /**
- * Performance of multiple thread take connection
- *  
+ * Performance of single thread take connection
+ * 
  * @author Chris
  */
-public class MutilThreadBorrow {
-	static final int scale = 4;
-	static String testName = "Multiple thread borrow";
-	static Logger log = LoggerFactory.getLogger(MutilThreadBorrow.class);
+public class SingleThreadBorrow {
+	static final int scale=6;
+	static String testName = "Single thread borrow";
+	static Logger log = LoggerFactory.getLogger(SingleThreadBorrow.class);
 
 	private static List<Object> testDBCP(int threadCount, int executeCount) throws Exception {
 		org.apache.commons.dbcp.BasicDataSource dataource = DBCP.createDataSource();
@@ -124,7 +122,7 @@ public class MutilThreadBorrow {
 
 	private static List<Object> test(int threadCount, int loopCount, DataSource dataSource, String sourceName)
 			throws Exception {
-	
+
 		log.info("Pool["+sourceName+" -- "+testName+"] -- Begin{"+threadCount+"threads X "+loopCount+"iterate}");
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.SECOND, 3);
@@ -136,36 +134,29 @@ public class MutilThreadBorrow {
 			threads[i] = new TestTakeThread(dataSource, loopCount, latch, concurrentTime);
 			threads[i].start();
 		}
-		latch.await();//wait all thread done
+		
+		latch.await();
 		List<Object> summaryList= TestResultPrint.printSummary(sourceName, testName, threads, threadCount, loopCount, scale);
 		return summaryList;
 	}
 
-	public static int appearNumber(String srcText, String findText) {
-	    int count = 0;
-	    Pattern p = Pattern.compile(findText);
-	    Matcher m = p.matcher(srcText);
-	    while (m.find()) {
-	        count++;
-	    }
-	    return count;
-	}
 	public static void main(String[] args) throws Exception {
 		Link.loadConfig();
-		int threadCount = Link.REQUEST_THREAD_COUNT;
-		int executeCount = Link.THREAD_QUERY_COUNT;
+		int threadCount = 1;
+		int executeCount = Link.REQUEST_THREAD_COUNT * Link.THREAD_QUERY_COUNT;
+
 		String poolName = Link.POOL_TEST;
 		if (args != null && args.length > 0)
 			poolName = args[0];
 		String[] pools = poolName.split(",");
-		
+
 		List<TestAvg> arvgList = new ArrayList<TestAvg>();
 		List<List<Object>> allPoolResultList = new ArrayList<>();
 		for (int i = 0; i < pools.length; i++) {
 			String testPoolName = pools[i];
 			testPoolName = testPoolName.trim();
-			List<Object> poolResultList = null;
-
+			List<Object> poolResultList=null;
+			
 			if (testPoolName.equalsIgnoreCase("DBCP")) {
 				poolResultList = testDBCP(threadCount, executeCount);
 			} else if (testPoolName.equalsIgnoreCase("DBCP2")) {
@@ -193,8 +184,9 @@ public class MutilThreadBorrow {
 				arvgList.add(new TestAvg(testPoolName, (BigDecimal) poolResultList.get(2)));
 			}
 			
+			
 			if(pools.length>1)
-			 LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(5));
+				 LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(5));
 		}
 		
 		if(allPoolResultList.size()>1)
