@@ -21,10 +21,11 @@ public class DBCP2{
 		datasource.setMaxWaitMillis(Link.REQUEST_TIMEOUT);
 		datasource.setPoolPreparedStatements(true);
 		datasource.setMaxOpenPreparedStatements(20);
-		
+		datasource.setValidationQuery("select 1 from dual");
+
 		datasource.setTestOnBorrow(true);
 		datasource.setTestOnReturn(false);
-		datasource.setValidationQuery("select 1 from dual");
+		datasource.setDefaultAutoCommit(false);
 		return datasource;
 	}
 }

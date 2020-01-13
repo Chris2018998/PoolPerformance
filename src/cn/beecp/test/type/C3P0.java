@@ -28,6 +28,7 @@ public class C3P0 {
 		datasource.setMaxStatementsPerConnection(20);
 		datasource.setTestConnectionOnCheckin(false);
 		datasource.setTestConnectionOnCheckout(true);
+		datasource.setAutoCommitOnClose(false);
 		datasource.setPreferredTestQuery("select 1 from dual");
 	
 		return datasource;

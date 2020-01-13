@@ -23,11 +23,12 @@ public class Druid {
 //		datasource.setMinEvictableIdleTimeMillis(3000000);
 //		datasource.setMaxWaitThreadCount(1000000);
         datasource.setMaxWait(Link.REQUEST_TIMEOUT);
+		datasource.setValidationQuery("select 1 from dual");
+
 		datasource.setTestOnBorrow(true);
 		datasource.setTestOnReturn(false);
 		datasource.setUseUnfairLock(true);
-		datasource.setValidationQuery("select 1 from dual");
-	
+		datasource.setDefaultAutoCommit(false);
 		return datasource;
 	}
 }

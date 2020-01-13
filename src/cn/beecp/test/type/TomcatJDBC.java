@@ -1,13 +1,13 @@
 package cn.beecp.test.type;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
+import cn.beecp.test.Link;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.apache.tomcat.jdbc.pool.PooledConnection;
 import org.apache.tomcat.jdbc.pool.Validator;
-import cn.beecp.test.Link;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 /**
  * Tomcat JDBC
@@ -25,13 +25,13 @@ public class TomcatJDBC {
 		p.setMaxActive(Link.POOL_MAX_ACTIVE);
 		p.setMinIdle(Link.POOL_MIN_ACTIVE);
 		p.setMaxIdle(Link.POOL_MAX_ACTIVE);
-		p.setMaxWait(Link.REQUEST_TIMEOUT);	
+		p.setMaxWait(Link.REQUEST_TIMEOUT);
+		p.setValidationQuery("select 1 from dual");
 		p.setTestOnBorrow(true);
 		p.setTestOnReturn(false);
-		p.setValidationQuery("select 1 from dual");
-		
 		p.setDefaultAutoCommit(false);
 		p.setRollbackOnReturn(true);
+
 		p.setUseDisposableConnectionFacade(true);
 		p.setJdbcInterceptors("org.apache.tomcat.jdbc.pool.interceptor.ConnectionState"); //;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer");
 		p.setValidationInterval(1000);

@@ -1,9 +1,9 @@
 package cn.beecp.test.type;
 
-import java.util.concurrent.Executors;
-
 import cn.beecp.test.Link;
 import org.vibur.dbcp.ViburDBCPDataSource;
+
+import java.util.concurrent.Executors;
 
 public class Vibur {
 	public static ViburDBCPDataSource createDataSource()throws Exception {
@@ -26,6 +26,7 @@ public class Vibur {
         
         vibur.setClearSQLWarnings(true);
         vibur.setResetDefaultsAfterUse(true);
+        vibur.setDefaultAutoCommit(false);
 		vibur.setPoolFair(false);
         vibur.start();
 		return vibur;

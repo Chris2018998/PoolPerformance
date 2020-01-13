@@ -1,7 +1,6 @@
 package cn.beecp.test.type;
 
 import cn.beecp.test.Link;
-
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -19,8 +18,9 @@ public class HikariCP {
 	    config.setMaximumPoolSize(Link.POOL_MAX_ACTIVE);
 		config.setConnectionTimeout(Link.REQUEST_TIMEOUT);
 	    config.setConnectionTestQuery("select 1 from dual");
-	    HikariDataSource  datasource=new HikariDataSource(config);   
-	    
+
+		config.setAutoCommit(false);
+	    HikariDataSource  datasource=new HikariDataSource(config);
 		return datasource;
 	}
 }
