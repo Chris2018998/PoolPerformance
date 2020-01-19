@@ -1,15 +1,11 @@
 package cn.beecp.test;
-import static java.lang.System.currentTimeMillis;
-import static java.lang.System.nanoTime;
-
-import java.sql.Connection;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.LockSupport;
+import cn.beecp.util.BeecpUtil;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.util.concurrent.CountDownLatch;
 
-import cn.beecp.util.BeecpUtil;
+import static java.lang.System.nanoTime;
 
 /**
  *  Thread to take-out connection from pool
@@ -50,10 +46,10 @@ class TestTakeThread extends Thread  implements TestResult {
 	}
 
 	public void run() {
-		long waitTime = targetRunMillSeconds - currentTimeMillis();
-		if (waitTime <= 0)
-			waitTime = 10;
-		LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(waitTime));
+//		long waitTime = targetRunMillSeconds - currentTimeMillis();
+//		if (waitTime <= 0)
+//			waitTime = 10;
+//		LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(waitTime));
 	
 		for (int i = 0; i < loopCount; i++) {
 			startTime[i] = nanoTime();
@@ -74,9 +70,8 @@ class TestTakeThread extends Thread  implements TestResult {
 		Connection con = null;
 		try {
 			con = datasource.getConnection();
-			//Thread.sleep(1);
 		} catch (Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			ok=false;
 		} finally {
 			BeecpUtil.oclose(con);

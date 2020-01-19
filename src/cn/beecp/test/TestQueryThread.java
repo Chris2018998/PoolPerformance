@@ -1,17 +1,13 @@
 package cn.beecp.test;
 
-import static java.lang.System.currentTimeMillis;
-import static java.lang.System.nanoTime;
+import cn.beecp.util.BeecpUtil;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.LockSupport;
 
-import javax.sql.DataSource;
-
-import cn.beecp.util.BeecpUtil;
+import static java.lang.System.nanoTime;
 
 /**
  *  Thread to execute SQL 
@@ -57,11 +53,11 @@ class TestQueryThread extends Thread implements TestResult {
 	}
 
 	public void run() {
-		long waitTime = targetRunMillSeconds - currentTimeMillis();
-		if (waitTime <= 0)
-			waitTime = 10;
+//		long waitTime = targetRunMillSeconds - currentTimeMillis();
+//		if (waitTime <= 0)
+//			waitTime = 10;
 		
-		LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(waitTime));
+//		LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(waitTime));
 		for (int i = 0; i < loopCount; i++) {
 			startTime[i]=nanoTime();
 			if (executeSQL(i,SQL)) {
