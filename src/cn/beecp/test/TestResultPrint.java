@@ -60,6 +60,7 @@ public class TestResultPrint {
 					mill8000++;
 				} else {
 					mill8000M++;
+					System.out.println(tempTime);
 				}
 
 				if (minTime == -1)

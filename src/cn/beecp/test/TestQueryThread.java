@@ -1,13 +1,16 @@
 package cn.beecp.test;
 
-import cn.beecp.util.BeecpUtil;
+import static java.lang.System.nanoTime;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.LockSupport;
+import static java.lang.System.currentTimeMillis;
+import javax.sql.DataSource;
 
-import static java.lang.System.nanoTime;
+import cn.beecp.util.BeecpUtil;
 
 /**
  *  Thread to execute SQL 
@@ -53,14 +56,14 @@ class TestQueryThread extends Thread implements TestResult {
 	}
 
 	public void run() {
-//		long waitTime = targetRunMillSeconds - currentTimeMillis();
-//		if (waitTime <= 0)
-//			waitTime = 10;
+		long waitTime = targetRunMillSeconds - currentTimeMillis();
+		if (waitTime <= 0)
+			waitTime = 10;
 		
-//		LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(waitTime));
+		LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(waitTime));
 		for (int i = 0; i < loopCount; i++) {
 			startTime[i]=nanoTime();
-			if (executeSQL(i,SQL)) {
+			if (executeSQL(datasource,i,SQL)) {
 				successCount++;
 				endTime[i]=nanoTime();
 			} else {
@@ -72,7 +75,7 @@ class TestQueryThread extends Thread implements TestResult {
 		threadLatch.countDown();
 	}
 
-	private boolean executeSQL(int index, String sql) {
+	private static boolean executeSQL(DataSource datasource,int index, String sql) {
 		boolean ok;
 		Connection con = null;
 		PreparedStatement st = null;

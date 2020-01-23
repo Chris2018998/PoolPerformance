@@ -1,11 +1,14 @@
 package cn.beecp.test;
-import cn.beecp.util.BeecpUtil;
+import static java.lang.System.nanoTime;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.LockSupport;
 
-import static java.lang.System.nanoTime;
+import javax.sql.DataSource;
+import static java.lang.System.currentTimeMillis;
+import cn.beecp.util.BeecpUtil;
 
 /**
  *  Thread to take-out connection from pool
@@ -46,14 +49,14 @@ class TestTakeThread extends Thread  implements TestResult {
 	}
 
 	public void run() {
-//		long waitTime = targetRunMillSeconds - currentTimeMillis();
-//		if (waitTime <= 0)
-//			waitTime = 10;
-//		LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(waitTime));
+		long waitTime = targetRunMillSeconds - currentTimeMillis();
+		if (waitTime <= 0)
+			waitTime = 10;
+		LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(waitTime));
 	
 		for (int i = 0; i < loopCount; i++) {
 			startTime[i] = nanoTime();
-			if (execute(i)) {
+			if (execute(datasource,i)) {
 				successCount++;
 				endTime[i] = nanoTime();
 			} else {
@@ -65,7 +68,7 @@ class TestTakeThread extends Thread  implements TestResult {
 		threadLatch.countDown();
 	}
 
-	private boolean execute(int index) {
+	private static boolean execute(DataSource datasource,int index) {
 		boolean ok=true;
 		Connection con = null;
 		try {
