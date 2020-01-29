@@ -15,12 +15,13 @@ public class HikariCP {
 		config.setUsername(Link.JDBC_USER);
 		config.setPassword(Link.JDBC_PASSWORD);
 		config.setMinimumIdle(Link.POOL_INIT_SIZE);
-	    config.setMaximumPoolSize(Link.POOL_MAX_ACTIVE);
+	    	config.setMaximumPoolSize(Link.POOL_MAX_ACTIVE);
 		config.setConnectionTimeout(Link.REQUEST_TIMEOUT);
-	    config.setConnectionTestQuery("select 1 from dual");
-
+	    	config.setConnectionTestQuery("select 1 from dual");
+		config.setInitializationFailTimeout(-1);
 		config.setAutoCommit(false);
-	    HikariDataSource  datasource=new HikariDataSource(config);
+		
+	   	HikariDataSource  datasource=new HikariDataSource(config);
 		return datasource;
 	}
 }
