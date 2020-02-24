@@ -22,20 +22,20 @@ JDBC连接池性能测试
 
 4：TOMCAT-JDBC  Tomcat新开发的连接池
 
-5：Vibur:       (暂未了解)
+5：Vibur        (暂未了解)
 
 6：Druid        德鲁伊连接池(阿里知名JDBC专家温少开发)
 
 7：HikariCP    ‘光’连接池(美国大咖开发，被很多人追捧为Java世界最快的连接池)
 
-8：BeeCP       小蜜蜂连接池（学习小作品，请从这里 (https://github.com/Chris2018998/BeeCP) 下载最新Jar包，并放入lib）
+8：BeeCP       小蜜蜂连接池（学习锻炼小作品，请从这里 (https://github.com/Chris2018998/BeeCP) 下载最新Jar包，并放入lib）
 
-各连接池的性能测试结果，请问地址：https://github.com/Chris2018998/BeeCP
+各连接池的性能测试结果，请访问地址：https://github.com/Chris2018998/BeeCP
 
 
 测试配置与工具:
 ---
-1：JVM:     Java8_64(推荐使用最新版本的Java8)
+1：Java:     Java8_64(推荐使用最新版本的Java8)
 
 2：Driver： 光连接池驱动(‘光’连接池的作者为连接池性能测试专门开发的一套简要JDBC驱动，也可使用其他实现JDBC接口的通用型驱动)    
 
