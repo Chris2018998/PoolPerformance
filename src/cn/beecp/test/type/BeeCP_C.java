@@ -21,9 +21,6 @@ public class BeeCP_C {
 		config.setMaxWait(Link.REQUEST_TIMEOUT);
  		config.setConnectionTestSQL("select 1 from dual");
 		config.setFairMode(false);
-
-		config.setTestOnBorrow(true);
-		config.setTestOnReturn(false);
 		config.setDefaultAutoCommit(false);
 
 	    return new BeeDataSource(config);
