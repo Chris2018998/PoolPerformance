@@ -21,10 +21,7 @@ public class BeeCP_F {
 		config.setConcurrentSize(Link.POOL_MAX_ACTIVE/2);
 		config.setMaxWait(Link.REQUEST_TIMEOUT);
  		config.setConnectionTestSQL("select 1 from dual");
-		config.setTestOnBorrow(true);
-		config.setTestOnReturn(false);
 		config.setDefaultAutoCommit(false);
-
 		config.setFairMode(true);
 		return new BeeDataSource(config);
 	}  		 
