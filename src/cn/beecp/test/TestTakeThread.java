@@ -19,17 +19,15 @@ class TestTakeThread extends Thread  implements TestResult {
 	private long[] endTime;
 	private DataSource datasource;
 	private CountDownLatch threadLatch;
-	private long targetRunMillSeconds;
 	private int failedCount = 0;
 	private int successCount = 0;
 	
-	public TestTakeThread(DataSource datasourcel, int loopCount, CountDownLatch counter, long time) {
+	public TestTakeThread(DataSource datasourcel, int loopCount, CountDownLatch counter) {
 		this.datasource = datasourcel;
 		this.threadLatch = counter;
 		this.loopCount = loopCount;
 		this.startTime = new long[loopCount];
 		this.endTime = new long[loopCount];
-		this.targetRunMillSeconds = time;
 	}
 
 	public int getFailedCount() {
@@ -49,11 +47,6 @@ class TestTakeThread extends Thread  implements TestResult {
 	}
 
 	public void run() {
-		long waitTime = targetRunMillSeconds - currentTimeMillis();
-		if (waitTime <= 0)
-			waitTime = 10;
-		LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(waitTime));
-	
 		for (int i = 0; i < loopCount; i++) {
 			startTime[i] = nanoTime();
 			if (execute(datasource,i)) {
