@@ -124,14 +124,10 @@ public class MutilThreadQuery {
 			String sourceName) throws Exception {
 		
 		log.info("Pool["+sourceName+" -- "+testName+"] -- Begin{"+threadCount+"threads X "+loopCount+"iterate}");
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.SECOND, 5);
-		long concurrentTime = calendar.getTimeInMillis();
-
 		CountDownLatch latch = new CountDownLatch(threadCount);
 		TestQueryThread[] threads = new TestQueryThread[threadCount];
 		for (int i = 0; i < threadCount; i++) {
-			threads[i] = new TestQueryThread(dataSource, sql, loopCount, latch, concurrentTime);
+			threads[i] = new TestQueryThread(dataSource, sql, loopCount, latch);
 			threads[i].start();
 		}
 
