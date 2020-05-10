@@ -124,14 +124,10 @@ public class SingleThreadBorrow {
 			throws Exception {
 
 		log.info("Pool["+sourceName+" -- "+testName+"] -- Begin{"+threadCount+"threads X "+loopCount+"iterate}");
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.SECOND, 3);
-		long concurrentTime = calendar.getTimeInMillis();
-
 		CountDownLatch latch = new CountDownLatch(threadCount);
 		TestTakeThread[] threads = new TestTakeThread[threadCount];
 		for (int i = 0; i < threadCount; i++) {
-			threads[i] = new TestTakeThread(dataSource, loopCount, latch, concurrentTime);
+			threads[i] = new TestTakeThread(dataSource, loopCount, latch);
 			threads[i].start();
 		}
 		
