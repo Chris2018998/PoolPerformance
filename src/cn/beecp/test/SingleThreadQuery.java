@@ -124,15 +124,11 @@ public class SingleThreadQuery {
 	private static List<Object> test(String sql, int threadCount, int loopCount, DataSource dataSource,
 			String sourceName) throws Exception {
 	
-		log.info("Pool["+sourceName+" -- "+testName+"] -- Begin{"+threadCount+"threads X "+loopCount+"iterate}");
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.SECOND, 3);
-		long concurrentTime = calendar.getTimeInMillis();
-
+		log.info("Pool["+sourceName+" -- "+testName+"] -- Begin{"+threadCount+"threads X "+loopCount+"iterate}");	
 		CountDownLatch latch = new CountDownLatch(threadCount);
 		TestQueryThread[] threads = new TestQueryThread[threadCount];
 		for (int i = 0; i < threadCount; i++) {
-			threads[i] = new TestQueryThread(dataSource, sql, loopCount, latch, concurrentTime);
+			threads[i] = new TestQueryThread(dataSource, sql, loopCount, latch);
 			threads[i].start();
 		}
 
