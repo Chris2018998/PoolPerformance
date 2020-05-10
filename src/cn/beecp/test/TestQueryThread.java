@@ -25,18 +25,16 @@ class TestQueryThread extends Thread implements TestResult {
 
 	private DataSource datasource;
 	private CountDownLatch threadLatch;
-	private long targetRunMillSeconds;
 	private int failedCount = 0;
 	private int successCount = 0;
 	
-	public TestQueryThread(DataSource datasource, String SQL, int loopCount, CountDownLatch counter, long time) {
+	public TestQueryThread(DataSource datasource, String SQL, int loopCount, CountDownLatch counter) {
 		this.SQL = SQL;
 		this.datasource = datasource;
 		this.threadLatch = counter;
 		this.loopCount = loopCount;
 		this.startTime = new long[loopCount];
 		this.endTime = new long[loopCount];
-		this.targetRunMillSeconds = time;
 	}
 
 	public int getFailedCount() {
@@ -56,11 +54,6 @@ class TestQueryThread extends Thread implements TestResult {
 	}
 
 	public void run() {
-		long waitTime = targetRunMillSeconds - currentTimeMillis();
-		if (waitTime <= 0)
-			waitTime = 10;
-		
-		LockSupport.parkNanos(TimeUnit.MILLISECONDS.toNanos(waitTime));
 		for (int i = 0; i < loopCount; i++) {
 			startTime[i]=nanoTime();
 			if (executeSQL(datasource,i,SQL)) {
