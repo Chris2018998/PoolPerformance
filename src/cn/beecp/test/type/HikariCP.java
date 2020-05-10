@@ -18,7 +18,6 @@ public class HikariCP {
 	    	config.setMaximumPoolSize(Link.POOL_MAX_ACTIVE);
 		config.setConnectionTimeout(Link.REQUEST_TIMEOUT);
 	    	config.setConnectionTestQuery("select 1 from dual");
-		config.setInitializationFailTimeout(-1);
 		config.setAutoCommit(false);
 		
 	   	HikariDataSource  datasource=new HikariDataSource(config);
