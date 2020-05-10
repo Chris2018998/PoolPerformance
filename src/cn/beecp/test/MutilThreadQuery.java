@@ -35,7 +35,7 @@ import cn.beecp.BeeDataSource;
  * @author Chris
  */
 public class MutilThreadQuery {
-	static final int scale=4;
+	static final int scale=6;
 	static String testName = "Multiple thread query";
 	static Logger log = LoggerFactory.getLogger(MutilThreadQuery.class);
 
