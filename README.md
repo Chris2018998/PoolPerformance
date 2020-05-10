@@ -37,7 +37,7 @@ JDBC连接池性能测试
 ---
 1：Java:     Java8_64(推荐使用最新版本的Java8)
 
-2：Driver： 光连接池驱动(‘光’连接池的作者为连接池性能测试专门开发的一套简要JDBC驱动，也可使用其他实现JDBC接口的通用型驱动)    
+2：Driver：  支持JDBC标准接口的驱动均可
 
 3：CPU:     频率尽量高，推荐使用新版64位多核CPU
 
@@ -62,7 +62,6 @@ JDBC连接池性能测试
 
 测试使用的表
 ---
-(也可更换为其他表,配置项：Link.properties/THREAD_QUERY_TABLE:若使用光连接驱动，可不用更改)
 
 DROP TABLE TEST_USER;
 
