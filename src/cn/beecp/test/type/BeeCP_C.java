@@ -17,7 +17,6 @@ public class BeeCP_C {
 		config.setPassword(Link.JDBC_PASSWORD);
 		config.setMaxActive(Link.POOL_MAX_ACTIVE);
 		config.setInitialSize(Link.POOL_INIT_SIZE);
-		config.setConcurrentSize(Link.POOL_MAX_ACTIVE/2);
 		config.setMaxWait(Link.REQUEST_TIMEOUT);
  		config.setConnectionTestSQL("select 1 from dual");
 		config.setFairMode(false);
