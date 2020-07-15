@@ -28,6 +28,7 @@ import cn.beecp.test.type.HikariCP;
 import cn.beecp.test.type.TomcatJDBC;
 import cn.beecp.test.type.Vibur;
 import cn.beecp.BeeDataSource;
+import static java.util.concurrent.TimeUnit.MINUTES;
 
 /**
  * Performance of multiple thread execute SQL query
@@ -40,7 +41,7 @@ public class MutilThreadQuery {
 	static Logger log = LoggerFactory.getLogger(MutilThreadQuery.class);
 
 	private static List<Object> testDBCP(String sql, int threadCount, int executeCount) throws Exception {
-		org.apache.commons.dbcp.BasicDataSource dataource = DBCP.createDataSource();
+		DataSourceWrapper dataource = DBCP.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "DBCP");
 		} finally {
@@ -49,7 +50,7 @@ public class MutilThreadQuery {
 	}
 
 	private static List<Object> testDBCP2(String sql, int threadCount, int executeCount) throws Exception {
-		org.apache.commons.dbcp2.BasicDataSource dataource = DBCP2.createDataSource();
+		DataSourceWrapper dataource =DBCP2.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "DBCP2");
 		} finally {
@@ -58,7 +59,7 @@ public class MutilThreadQuery {
 	}
 
 	private static List<Object> testC3P0(String sql, int threadCount, int executeCount) throws Exception {
-		ComboPooledDataSource dataource = C3P0.createDataSource();
+		DataSourceWrapper dataource = C3P0.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "C3P0");
 		} finally {
@@ -67,7 +68,7 @@ public class MutilThreadQuery {
 	}
 
 	private static List<Object> testTomcatJDBC(String sql, int threadCount, int executeCount) throws Exception {
-		org.apache.tomcat.jdbc.pool.DataSource dataource = TomcatJDBC.createDataSource();
+		DataSourceWrapper dataource = TomcatJDBC.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "Tomcat");
 		} finally {
@@ -76,7 +77,7 @@ public class MutilThreadQuery {
 	}
 
 	private static List<Object> testVibur(String sql, int threadCount, int executeCount) throws Exception {
-		ViburDBCPDataSource dataource = Vibur.createDataSource();
+		DataSourceWrapper dataource = Vibur.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "Vibur");
 		} finally {
@@ -85,7 +86,7 @@ public class MutilThreadQuery {
 	}
 
 	private static List<Object> testDruid(String sql, int threadCount, int executeCount) throws Exception {
-		DruidDataSource dataource = Druid.createDataSource();
+		DataSourceWrapper dataource =Druid.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "Druid");
 		} finally {
@@ -94,7 +95,7 @@ public class MutilThreadQuery {
 	}
 
 	private static List<Object> testHikariCP(String sql, int threadCount, int executeCount) throws Exception {
-		HikariDataSource dataource = HikariCP.createDataSource();
+		DataSourceWrapper dataource =HikariCP.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "HikariCP");
 		} finally {
@@ -137,9 +138,9 @@ public class MutilThreadQuery {
 	}
 
 	public static void main(String[] args) throws Exception {
+		//LockSupport.parkNanos(MINUTES.toNanos(1));
 		Link.loadConfig();
 		String sql = "select * from " + Link.THREAD_QUERY_TABLE;
-		
 		
 		int threadCount = Link.REQUEST_THREAD_COUNT;
 		int executeCount = Link.THREAD_QUERY_COUNT;
@@ -187,5 +188,7 @@ public class MutilThreadQuery {
 		
 		if(allPoolResultList.size()>1)
 		 TestResultPrint.printAnalysis(poolName,testName,arvgList,allPoolResultList);
+	 
+		//LockSupport.park();
 	}
 }
