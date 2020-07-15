@@ -1,6 +1,7 @@
 package cn.beecp.test.type;
 
 import cn.beecp.test.Link;
+import cn.beecp.test.DataSourceWrapper;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.apache.tomcat.jdbc.pool.PooledConnection;
@@ -14,7 +15,7 @@ import java.sql.SQLException;
  */
 public class TomcatJDBC {
 
-	public static org.apache.tomcat.jdbc.pool.DataSource createDataSource()throws Exception {
+	public static DataSourceWrapper createDataSource()throws Exception {
 		PoolProperties p = new PoolProperties();
 		p.setUrl(Link.JDBC_URL);
 		p.setDriverClassName(Link.JDBC_DRIVER);
@@ -50,6 +51,6 @@ public class TomcatJDBC {
 		
 		DataSource datasource = new DataSource();
 		datasource.setPoolProperties(p);
-		return datasource;
+		return new DataSourceWrapper(datasource);
 	}
 }

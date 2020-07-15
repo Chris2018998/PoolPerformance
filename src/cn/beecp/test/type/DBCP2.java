@@ -2,12 +2,13 @@ package cn.beecp.test.type;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import cn.beecp.test.Link;
+import cn.beecp.test.DataSourceWrapper;
 
 /**
  * DBCP
  */
 public class DBCP2{
-	public static BasicDataSource createDataSource() throws Exception {
+	public static DataSourceWrapper createDataSource() throws Exception {
 		BasicDataSource datasource = new BasicDataSource();
 		datasource.setUrl(Link.JDBC_URL);
 		datasource.setDriverClassName(Link.JDBC_DRIVER);
@@ -26,6 +27,6 @@ public class DBCP2{
 		datasource.setTestOnBorrow(true);
 		datasource.setTestOnReturn(false);
 		datasource.setDefaultAutoCommit(false);
-		return datasource;
+		return new DataSourceWrapper(datasource);
 	}
 }

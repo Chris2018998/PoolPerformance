@@ -2,12 +2,13 @@ package cn.beecp.test.type;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import cn.beecp.test.Link;
+import cn.beecp.test.DataSourceWrapper;
 
 /**
  * DBCP
  */
 public class DBCP{
-	public static BasicDataSource createDataSource() throws Exception {
+	public static DataSourceWrapper createDataSource() throws Exception {
 
 		BasicDataSource datasource = new BasicDataSource();
 		datasource.setUrl(Link.JDBC_URL);
@@ -27,7 +28,7 @@ public class DBCP{
 		datasource.setTestOnBorrow(true);
 		datasource.setTestOnReturn(false);
 		datasource.setDefaultAutoCommit(false);
-		return datasource;
+		return new DataSourceWrapper(datasource);
 	}
 	 
 }

@@ -9,7 +9,7 @@ import cn.beecp.BeeDataSourceConfig;
  * 
  */
 public class BeeCP_C {
-	public static BeeDataSource  createDataSource() throws Exception{
+	public static BeeDataSource createDataSource() throws Exception{
 		BeeDataSourceConfig config = new BeeDataSourceConfig();
 		config.setDriverClassName(Link.JDBC_DRIVER);
 		config.setJdbcUrl(Link.JDBC_URL);
@@ -19,9 +19,7 @@ public class BeeCP_C {
 		config.setInitialSize(Link.POOL_INIT_SIZE);
 		config.setMaxWait(Link.REQUEST_TIMEOUT);
  		config.setConnectionTestSQL("select 1 from dual");
-		config.setFairMode(false);
 		config.setDefaultAutoCommit(false);
-
 	    return new BeeDataSource(config);
 	}  		 
 }
