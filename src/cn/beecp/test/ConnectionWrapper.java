@@ -21,8 +21,8 @@ import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
 public class ConnectionWrapper implements Connection {
 	private Connection delegete;
-	private volatile Boolean closedInd = Boolean.FALSE;
-	private static final AtomicReferenceFieldUpdater<ConnectionWrapper, Boolean> closedStateUpd = AtomicReferenceFieldUpdater.newUpdater(ConnectionWrapper.class, Boolean.class, "closedInd");
+	private boolean closedInd;
+
 	public ConnectionWrapper(Connection delegete) {
 		this.delegete = delegete;
 	}
@@ -67,16 +67,19 @@ public class ConnectionWrapper implements Connection {
 		delegete.rollback();
 	}
 	
-	public void close() throws SQLException {
-		if (closedStateUpd.compareAndSet(this, Boolean.FALSE, Boolean.TRUE))
-			delegete.close();
-	    else
-	      throw new SQLException("Connection has been closed");
+ 
+	public synchronized boolean isClosed() throws SQLException {
+	   return closedInd;
 	}
 
-	public boolean isClosed() throws SQLException {
-		return closedInd;
-	}
+        public synchronized void close() throws SQLException {
+           if (!closedInd) {
+	     closedInd = true
+             delegete.close();
+          } else {
+            throw new SQLException();
+          }
+        }
 
 	public DatabaseMetaData getMetaData() throws SQLException {
 		return delegete.getMetaData();
