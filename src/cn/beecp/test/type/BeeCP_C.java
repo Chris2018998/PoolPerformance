@@ -18,8 +18,15 @@ public class BeeCP_C {
 		config.setMaxActive(Link.POOL_MAX_ACTIVE);
 		config.setInitialSize(Link.POOL_INIT_SIZE);
 		config.setMaxWait(Link.REQUEST_TIMEOUT);
+
  		config.setConnectionTestSQL("select 1 from dual");
 		config.setDefaultAutoCommit(false);
+		config.setTraceStatement(true);
+		config.addConnectProperty("cachePrepStmts", "true");
+		config.addConnectProperty("prepStmtCacheSize", "250");
+		config.addConnectProperty("prepStmtCacheSqlLimit", "2048");
+		config.addConnectProperty("useServerPrepStmts", "true");
+		
 	    return new BeeDataSource(config);
 	}  		 
 }

@@ -14,11 +14,6 @@ import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vibur.dbcp.ViburDBCPDataSource;
-
-import com.alibaba.druid.pool.DruidDataSource;
-import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.zaxxer.hikari.HikariDataSource;
 
 import cn.beecp.test.type.BeeCP_C;
 import cn.beecp.test.type.BeeCP_F;
@@ -32,6 +27,12 @@ import cn.beecp.test.type.Vibur;
 import cn.beecp.BeeDataSource;
 import static java.util.concurrent.TimeUnit.MINUTES;
 
+import org.apache.commons.dbcp.BasicDataSource;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.vibur.dbcp.ViburDBCPDataSource;
+import com.alibaba.druid.pool.DruidDataSource;
+import com.zaxxer.hikari.HikariDataSource;
+
 /**
  * Performance of multiple thread take connection
  *  
@@ -43,7 +44,7 @@ public class MutilThreadBorrow {
 	static Logger log = LoggerFactory.getLogger(MutilThreadBorrow.class);
 
 	private static List<Object> testDBCP(int threadCount, int executeCount) throws Exception {
-		DataSourceWrapper dataource = DBCP.createDataSource();
+		BasicDataSource dataource = DBCP.createDataSource();
 		try {
 			return test(threadCount, executeCount, dataource, "DBCP");
 		} finally {
@@ -52,7 +53,7 @@ public class MutilThreadBorrow {
 	}
 
 	private static List<Object> testDBCP2(int threadCount, int executeCount) throws Exception {
-		DataSourceWrapper dataource =  DBCP2.createDataSource();
+		org.apache.commons.dbcp2.BasicDataSource dataource =  DBCP2.createDataSource();
 		try {
 			return test(threadCount, executeCount, dataource, "DBCP2");
 		} finally {
@@ -61,7 +62,7 @@ public class MutilThreadBorrow {
 	}
 
 	private static List<Object> testC3P0(int threadCount, int executeCount) throws Exception {
-		DataSourceWrapper dataource = C3P0.createDataSource();
+		ComboPooledDataSource dataource = C3P0.createDataSource();
 		try {
 			return test(threadCount, executeCount, dataource, "C3P0");
 		} finally {
@@ -70,7 +71,7 @@ public class MutilThreadBorrow {
 	}
 
 	private static List<Object> testTomcatJDBC(int threadCount, int executeCount) throws Exception {
-		DataSourceWrapper dataource =TomcatJDBC.createDataSource();
+		org.apache.tomcat.jdbc.pool.DataSource dataource =TomcatJDBC.createDataSource();
 		try {
 			return test(threadCount, executeCount, dataource, "Tomcat");
 		} finally {
@@ -79,7 +80,7 @@ public class MutilThreadBorrow {
 	}
 
 	private static List<Object> testVibur(int threadCount, int executeCount) throws Exception {
-		DataSourceWrapper dataource = Vibur.createDataSource();
+		ViburDBCPDataSource dataource = Vibur.createDataSource();
 		try {
 			return test(threadCount, executeCount, dataource, "Vibur");
 		} finally {
@@ -88,7 +89,7 @@ public class MutilThreadBorrow {
 	}
 
 	private static List<Object> testDruid(int threadCount, int executeCount) throws Exception {
-		DataSourceWrapper dataource =Druid.createDataSource();
+		DruidDataSource dataource =Druid.createDataSource();
 		try {
 			return test(threadCount, executeCount, dataource, "Druid");
 		} finally {
@@ -97,7 +98,7 @@ public class MutilThreadBorrow {
 	}
 
 	private static List<Object> testHikariCP(int threadCount, int executeCount) throws Exception {
-		DataSourceWrapper dataource =HikariCP.createDataSource();
+		HikariDataSource dataource =HikariCP.createDataSource();
 		try {
 			return test(threadCount, executeCount, dataource, "HikariCP");
 		} finally {

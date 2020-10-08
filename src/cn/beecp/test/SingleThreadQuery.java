@@ -12,11 +12,7 @@ import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vibur.dbcp.ViburDBCPDataSource;
-
-import com.alibaba.druid.pool.DruidDataSource;
-import com.mchange.v2.c3p0.ComboPooledDataSource;
-import com.zaxxer.hikari.HikariDataSource;
+ 
 
 import cn.beecp.test.type.BeeCP_C;
 import cn.beecp.test.type.BeeCP_F;
@@ -28,6 +24,13 @@ import cn.beecp.test.type.HikariCP;
 import cn.beecp.test.type.TomcatJDBC;
 import cn.beecp.test.type.Vibur;
 import cn.beecp.BeeDataSource;
+
+import org.apache.commons.dbcp.BasicDataSource;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.vibur.dbcp.ViburDBCPDataSource;
+import com.alibaba.druid.pool.DruidDataSource;
+import com.zaxxer.hikari.HikariDataSource;
+
 
 /**
  * Performance of single thread execute SQL query
@@ -41,7 +44,7 @@ public class SingleThreadQuery {
 	static Logger log = LoggerFactory.getLogger(SingleThreadQuery.class);
 
 	private static List<Object> testDBCP(String sql, int threadCount, int executeCount) throws Exception {
-		DataSourceWrapper dataource = DBCP.createDataSource();
+		BasicDataSource dataource = DBCP.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "DBCP");
 		} finally {
@@ -50,7 +53,7 @@ public class SingleThreadQuery {
 	}
 
 	private static List<Object> testDBCP2(String sql, int threadCount, int executeCount) throws Exception {
-		DataSourceWrapper dataource = DBCP2.createDataSource();
+		org.apache.commons.dbcp2.BasicDataSource dataource = DBCP2.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "DBCP2");
 		} finally {
@@ -59,7 +62,7 @@ public class SingleThreadQuery {
 	}
 
 	private static List<Object> testC3P0(String sql, int threadCount, int executeCount) throws Exception {
-		DataSourceWrapper dataource = C3P0.createDataSource();
+		ComboPooledDataSource dataource = C3P0.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "C3P0");
 		} finally {
@@ -68,7 +71,7 @@ public class SingleThreadQuery {
 	}
 
 	private static List<Object> testTomcatJDBC(String sql, int threadCount, int executeCount) throws Exception {
-		DataSourceWrapper dataource = TomcatJDBC.createDataSource();
+		org.apache.tomcat.jdbc.pool.DataSource dataource = TomcatJDBC.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "Tomcat");
 		} finally {
@@ -77,7 +80,7 @@ public class SingleThreadQuery {
 	}
 
 	private static List<Object> testVibur(String sql, int threadCount, int executeCount) throws Exception {
-		DataSourceWrapper dataource = Vibur.createDataSource();
+		ViburDBCPDataSource dataource = Vibur.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "Vibur");
 		} finally {
@@ -86,7 +89,7 @@ public class SingleThreadQuery {
 	}
 
 	private static List<Object> testDruid(String sql, int threadCount, int executeCount) throws Exception {
-		DataSourceWrapper dataource = Druid.createDataSource();
+		DruidDataSource dataource = Druid.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "Druid");
 		} finally {
@@ -95,7 +98,7 @@ public class SingleThreadQuery {
 	}
 
 	private static List<Object> testHikariCP(String sql, int threadCount, int executeCount) throws Exception {
-		DataSourceWrapper dataource = HikariCP.createDataSource();
+		HikariDataSource dataource = HikariCP.createDataSource();
 		try {
 			return test(sql, threadCount, executeCount, dataource, "HikariCP");
 		} finally {

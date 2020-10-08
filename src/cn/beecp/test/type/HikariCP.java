@@ -1,7 +1,6 @@
 package cn.beecp.test.type;
 
 import cn.beecp.test.Link;
-import cn.beecp.test.DataSourceWrapper;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -9,7 +8,7 @@ import com.zaxxer.hikari.HikariDataSource;
  * 光，very fast 
  */
 public class HikariCP {
-	public static DataSourceWrapper createDataSource() throws Exception {
+	public static HikariDataSource createDataSource() throws Exception {
 		HikariConfig config = new HikariConfig();
 		config.setJdbcUrl(Link.JDBC_URL);
 		config.setDriverClassName(Link.JDBC_DRIVER);
@@ -21,7 +20,11 @@ public class HikariCP {
 	    config.setConnectionTestQuery("select 1 from dual");
 		config.setAutoCommit(false);
 		
-	   	HikariDataSource  datasource=new HikariDataSource(config);
-		return new DataSourceWrapper(datasource);
+		config.addDataSourceProperty("cachePrepStmts", "true");
+		config.addDataSourceProperty("prepStmtCacheSize", "250");
+		config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+		config.addDataSourceProperty("useServerPrepStmts", "true");
+		
+		return new HikariDataSource(config);
 	}
 }

@@ -22,6 +22,7 @@ public class BeeCP_F {
  		config.setConnectionTestSQL("select 1 from dual");
 		config.setDefaultAutoCommit(false);
 		config.setFairMode(true);
+		//config.setTraceStatement(true);
 		return new BeeDataSource(config);
 	}  		 
 }

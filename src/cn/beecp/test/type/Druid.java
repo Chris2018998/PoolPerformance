@@ -1,14 +1,13 @@
 package cn.beecp.test.type;
 
 import cn.beecp.test.Link;
-import cn.beecp.test.DataSourceWrapper;
 import com.alibaba.druid.pool.DruidDataSource;
 
 /**
  * product from Chinese alibaba
  */
 public class Druid {
-	public static DataSourceWrapper createDataSource() throws Exception {
+	public static DruidDataSource createDataSource() throws Exception {
 		DruidDataSource datasource = new DruidDataSource();
 		datasource.setUrl(Link.JDBC_URL);
 		datasource.setUsername(Link.JDBC_USER);
@@ -29,6 +28,6 @@ public class Druid {
 		datasource.setTestOnReturn(false);
 		datasource.setUseUnfairLock(true);
 		datasource.setDefaultAutoCommit(false);
-		return new DataSourceWrapper(datasource);
+		return datasource;
 	}
 }

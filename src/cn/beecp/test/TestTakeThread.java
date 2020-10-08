@@ -8,7 +8,6 @@ import java.util.concurrent.locks.LockSupport;
 
 import javax.sql.DataSource;
 import static java.lang.System.currentTimeMillis;
-import cn.beecp.util.BeecpUtil;
 
 /**
  *  Thread to take-out connection from pool
@@ -70,7 +69,7 @@ class TestTakeThread extends Thread  implements TestResult {
 			e.printStackTrace();
 			ok=false;
 		} finally {
-			BeecpUtil.oclose(con);
+			TestUtil.oclose(con);
 		}
 		return ok;
 	}

@@ -3,7 +3,6 @@ package cn.beecp.test.type;
 import java.beans.PropertyVetoException;
 
 import cn.beecp.test.Link;
-import cn.beecp.test.DataSourceWrapper;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 /**
@@ -11,7 +10,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
  */
 public class C3P0 {
 	
-	public static DataSourceWrapper createDataSource()throws Exception {
+	public static ComboPooledDataSource createDataSource()throws Exception {
 		ComboPooledDataSource datasource = new ComboPooledDataSource();
 		try {
 			datasource.setDriverClass(Link.JDBC_DRIVER);
@@ -31,6 +30,6 @@ public class C3P0 {
 		datasource.setAutoCommitOnClose(false);
 		datasource.setPreferredTestQuery("select 1 from dual");
 	
-		return  new DataSourceWrapper(datasource);
+		return  datasource;
 	}
 }

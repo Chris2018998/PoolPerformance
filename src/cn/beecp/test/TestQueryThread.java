@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 import static java.lang.System.currentTimeMillis;
 import javax.sql.DataSource;
+import java.sql.ResultSet;
 
-import cn.beecp.util.BeecpUtil;
 
 /**
  *  Thread to execute SQL 
@@ -72,17 +72,19 @@ class TestQueryThread extends Thread implements TestResult {
 		boolean ok;
 		Connection con = null;
 		PreparedStatement st = null;
+		ResultSet rs=null;
 		try {
 			con = datasource.getConnection();
 			st = con.prepareStatement(sql);
-			st.execute();
+			st.execute(); 
+		
 			ok=true;
 		} catch (Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			ok= false;
 		} finally {
-			BeecpUtil.oclose(st);
-			BeecpUtil.oclose(con);
+			TestUtil.oclose(st);
+			TestUtil.oclose(con);
 		}
 		return ok;
 	}
