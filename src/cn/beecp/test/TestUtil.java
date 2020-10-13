@@ -33,7 +33,7 @@ public class TestUtil {
 		try {
 			r.close();
 		} catch (Throwable e) {
-			log.warn("Warning:Error at closing resultSet:", e);
+			//log.warn("Warning:Error at closing resultSet:", e);
 		}
 	}
 
@@ -41,7 +41,7 @@ public class TestUtil {
 		try {
 			s.close();
 		} catch (Throwable e) {
-			log.warn("Warning:Error at closing statement:", e);
+		    //log.warn("Warning:Error at closing statement:", e);
 		}
 	}
 
@@ -49,7 +49,7 @@ public class TestUtil {
 		try {
 			c.close();
 		} catch (Throwable e) {
-			log.warn("Warning:Error at closing connection:", e);
+			//log.warn("Warning:Error at closing connection:", e);
 		}
 	}
 
