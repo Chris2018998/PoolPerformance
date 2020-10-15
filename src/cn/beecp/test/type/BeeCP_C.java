@@ -23,7 +23,7 @@ public class BeeCP_C {
 		config.setDefaultAutoCommit(false);
 		config.setTraceStatement(true);
 		config.addConnectProperty("cachePrepStmts", "true");
-		config.addConnectProperty("prepStmtCacheSize", "250");
+		config.addConnectProperty("prepStmtCacheSize", "50");
 		config.addConnectProperty("prepStmtCacheSqlLimit", "2048");
 		config.addConnectProperty("useServerPrepStmts", "true");
 		
